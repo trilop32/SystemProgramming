@@ -1,4 +1,5 @@
 #include<iostream>
+#include<conio.h>
 using  namespace std;
 #define MIN_TANK_VOLUME 20
 #define MAX_TANK_VOLUME 120
@@ -37,11 +38,11 @@ public:
 		if (volume > MAX_TANK_VOLUME)volume = MAX_TANK_VOLUME;
 		this->VOLUME = volume;*/
 		this->fuel_level = 0;
-		cout << "Tank is ready " << this << endl;
+		cout << "Tank is ready: " << this << endl;
 	}
 	~Tank()
 	{
-		cout << "Tank is over" << this << endl;
+		cout << "Tank is over " << this << endl;
 	}
 	void info()const
 	{
@@ -100,8 +101,62 @@ public:
 		cout << "Engine is " << (is_started ? "started" : "stopped") << endl;
 	}
 };
+
+class Car
+{
+	Engine engine;
+	Tank tank;
+	bool drive_inside;
+public:
+	Car(int consumption = 10, int volume = 60) :engine(consumption),tank(volume),drive_inside(false)
+	{
+		cout << "Your car is ready to go" << endl;
+	}
+	~Car()
+	{
+		cout << "Your car is over" << endl;
+	}
+	void get_in()
+	{
+		drive_inside = true;
+		panel();
+	}
+	void get_our()
+	{
+		drive_inside = false;
+		cout << "Out of the car" << endl;
+	}
+	void control()
+	{
+		char key;
+		do
+		{
+			key = _getch();
+			switch (key)
+			{
+			case 13: drive_inside ? get_our() : get_in(); break;
+				break;
+			}
+		} while (key != 27);
+	}
+	void panel()const
+	{
+		while (drive_inside)
+		{
+			system("CLS");//очистака
+			cout << "Fuel level:\t" << tank.get_fuel_level() << " liters.\n";
+			cout << "Engine is " << (engine.started() ? "started" : "stopped") << endl;
+		}
+	}
+	void info()const
+	{
+		engine.info();
+		tank.info();
+	}
+};
+
 //#define TANK_CHECK
-#define ENGINE
+//#define ENGINE
 //#define(определить)
 //деректива #define создаёт макроапределене(макрос)
 void main()
@@ -118,6 +173,11 @@ void main()
 		tank.info();
 	} while (fuel > 0);
 #endif // TANK_CHECK
+#ifdef ENGINE
 	Engine engine(10);
 	engine.info();
+#endif //ENGINE
+	Car bmw;
+	bmw.info();
+	bmw.control();
 }
