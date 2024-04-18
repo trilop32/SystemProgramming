@@ -28,7 +28,10 @@ public:
 		if (fuel_level <0) fuel_level = 0;
 		return fuel_level;
 	}
-	Tank(int volume):VOLUME(volume)
+	Tank(int volume):VOLUME(	
+		volume < MIN_TANK_VOLUME?MIN_TANK_VOLUME:
+        volume>MAX_TANK_VOLUME?MAX_TANK_VOLUME:
+		volume) 
 	{
 		/*if (volume < MIN_TANK_VOLUME)volume = MIN_TANK_VOLUME;
 		if (volume > MAX_TANK_VOLUME)volume = MAX_TANK_VOLUME;
@@ -47,5 +50,11 @@ void main()
 {
 	setlocale(LC_ALL, "");
 	Tank tank(50);
-	tank.info();
+	int fuel;
+	do
+	{
+		cout << "Введите объём топлива:"; cin >> fuel;
+		tank.fill(fuel);
+		tank.info();
+	} while (fuel > 0);
 }
