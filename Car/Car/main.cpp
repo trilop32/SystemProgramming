@@ -12,15 +12,16 @@ public:
 	{
 		return VOLUME;
 	}
-	double get_fuel_level()const
-	{
-		return fuel_level;
-	}
+	
 	void fill(double amount)
 	{
 		if (amount < 0) return;
 		if (fuel_level + amount < VOLUME)fuel_level += amount;
 		else fuel_level = VOLUME;
+	}
+	double get_fuel_level()const
+	{
+		return fuel_level;
 	}
 	double give_fuel(double amount)
 	{
@@ -107,6 +108,7 @@ class Car
 	Engine engine;
 	Tank tank;
 	bool drive_inside;
+	
 public:
 	Car(int consumption = 10, int volume = 60) :engine(consumption),tank(volume),drive_inside(false)
 	{
@@ -135,27 +137,41 @@ public:
 			switch (key)
 			{
 			case 13: drive_inside ? get_our() : get_in(); break;
-				break;
+			case 32:
+				if (drive_inside)
+				{
+					if (!engine.started())
+					{
+						engine.start();
+					}
+					else
+					{
+						engine.stop();
+					}
+				}break;
+			case 27: engine.stop(); cout << "Car is out. Fuel consumed: " << tank.get_fuel_level() << " litres.\n";
 			}
+			panel();
 		} while (key != 27);
 	}
 	void panel()const
 	{
-		while (drive_inside)
+		if (drive_inside)
 		{
 			system("CLS");//очистака
-			cout << "Fuel level:\t" << tank.get_fuel_level() << " liters.\n";
+			cout << "Fuel level: " << tank.get_fuel_level() << " liters.\n";
 			cout << "Engine is " << (engine.started() ? "started" : "stopped") << endl;
 		}
 	}
 	void info()const
 	{
+		cout << "\n";
 		engine.info();
 		tank.info();
 	}
 };
 
-//#define TANK_CHECK
+#define TANK_CHECK
 //#define ENGINE
 //#define(определить)
 //деректива #define создаёт макроапределене(макрос)
@@ -171,13 +187,15 @@ void main()
 		cout << "Введите объём топлива:"; cin >> fuel;
 		tank.fill(fuel);
 		tank.info();
-	} while (fuel > 0);
+	} while (fuel > 0 && fuel!=50);
 #endif // TANK_CHECK
 #ifdef ENGINE
 	Engine engine(10);
 	engine.info();
 #endif //ENGINE
 	Car bmw;
+	char key;
 	bmw.info();
 	bmw.control();
 }
+
