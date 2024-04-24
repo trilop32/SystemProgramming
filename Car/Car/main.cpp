@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 #include<conio.h>
 #include<thread>
 #include<Windows.h>
@@ -188,12 +188,12 @@ public:
 			case 'f':
 				if (drive_inside)
 				{
-					cout << "Выйдите из машины/ Get out of the car \a " << endl;
+					cout << "Р’С‹Р№РґРёС‚Рµ РёР· РјР°С€РёРЅС‹/ Get out of the car \a " << endl;
 				}
 				else
 				{
 					double fuel;
-					cout << "Введите уровень топлива: "; cin >> fuel;
+					cout << "Р’РІРµРґРёС‚Рµ СѓСЂРѕРІРµРЅСЊ С‚РѕРїР»РёРІР°: "; cin >> fuel;
 					tank.fill(fuel);
 				}break;
 			case Enter: drive_inside ? get_out() : get_in(); break;
@@ -235,7 +235,7 @@ public:
 	{
 		while (drive_inside)
 		{
-			system("CLS");//очистака
+			system("CLS");//РѕС‡РёСЃС‚Р°РєР°
 			
 			cout << "Fuel level: " << tank.get_fuel_level() << " liters.\n";
 			if (tank.get_fuel_level() < 5)
@@ -261,18 +261,18 @@ public:
 
 //#define TANK_CHECK
 //#define ENGINE
-//#define(определить)
-//деректива #define создаёт макроапределене(макрос)
+//#define(РѕРїСЂРµРґРµР»РёС‚СЊ)
+//РґРµСЂРµРєС‚РёРІР° #define СЃРѕР·РґР°С‘С‚ РјР°РєСЂРѕР°РїСЂРµРґРµР»РµРЅРµ(РјР°РєСЂРѕСЃ)
 void main()
 {
 	setlocale(LC_ALL, "");
 #if defined TANK_CHECK
-	//если определено TANK_CHECK, то ниже следующий код до дерективы #endif будет виден компилятору.
+	//РµСЃР»Рё РѕРїСЂРµРґРµР»РµРЅРѕ TANK_CHECK, С‚Рѕ РЅРёР¶Рµ СЃР»РµРґСѓСЋС‰РёР№ РєРѕРґ РґРѕ РґРµСЂРµРєС‚РёРІС‹ #endif Р±СѓРґРµС‚ РІРёРґРµРЅ РєРѕРјРїРёР»СЏС‚РѕСЂСѓ.
 	Tank tank(50);
 	int fuel;
 	do
 	{
-		cout << "Введите объём топлива:"; cin >> fuel;
+		cout << "Р’РІРµРґРёС‚Рµ РѕР±СЉС‘Рј С‚РѕРїР»РёРІР°:"; cin >> fuel;
 		tank.fill(fuel);
 		tank.info();
 	} while (fuel > 0 && fuel!=50);
